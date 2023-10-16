@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Barang
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+    <div class="container py-lg-5">
+        <div class="text-center">
+            <h2 class="py-3">Daftar Barang</h2>
+            <a class="btn btn-primary" th:href="@{/barang/tambah}">+ Tambah Barang</a>
+            <div class="p-5">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">SKU</th>
+                            <th scope="col">Merk</th>
+                            <th scope="col">Total Stok</th>
+                            <th scope="col">Harga</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="barang, iterationStatus : ${listBarang}">
+                            <th scope="row" th:text="${iterationStatus.count}"></th>
+                            <td th:text="${barang.sku}"></td>
+                            <td th:text="${barang.merk}"></td>
+                            <td th:text="${listStok[iterationStatus.count-1]}"></td>
+                            <td th:text="'Rp'+${#numbers.formatDecimal(barang.hargaBarang, 0, 'COMMA', 2, 'POINT')}">
+                            </td>
+                            <td>
+                                <span><a class="btn btn-sm btn-secondary"
+                                        th:href="@{/barang/}+${barang.sku}">Detail</a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

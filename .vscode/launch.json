@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SilogistikApplication<silogistik>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "apap.ti.silogistik.SilogistikApplication",
+            "projectName": "silogistik",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

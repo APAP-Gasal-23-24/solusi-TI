@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Detail Permintaan Pengiriman Barang
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('permintaan-pengiriman')}"></nav>
+    <div class="container py-lg-5">
+        <div class="card mx-lg-5">
+            <h2 class="card-header">
+                <div class="row">
+                    <div class="col">
+                        Detail Permintaan Pengiriman
+                    </div>
+                    <div class="col text-right">
+                        <a class="btn btn-danger"
+                            th:href="@{'/permintaan-pengiriman/delete/'+${permintaanPengiriman.id}}">Batalkan Permintaan</a>
+                    </div>
+                </div>
+            </h2>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>No. Permintaan Pengiriman</td>
+                            <td th:text="': '+${permintaanPengiriman.nomorPengiriman}"></td>
+                        </tr>
+                        <tr>
+                            <td>Waktu Permintaan</td>
+                            <td th:text="': '+${#temporals.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
+                        </tr>
+                        <tr>
+                            <td>Karyawan Bertugas</td>
+                            <td th:text="': '+${permintaanPengiriman.karyawan.nama}"> </td>
+                        </tr>
+                        <tr>
+                            <td>Tanggal Pengiriman</td>
+                            <td th:text="': '+${permintaanPengiriman.tanggalPengiriman}"></td>
+                        </tr>
+                        <tr>
+                            <td>Nama Penerima</td>
+                            <td th:text="': '+${permintaanPengiriman.namaPenerima}"></td>
+                        </tr>
+                        <tr>
+                            <td>Alamat Penerima</td>
+                            <td th:text="': '+${permintaanPengiriman.alamatPenerima}"></td>
+                        </tr>
+                        <tr>
+                            <td>Jenis Layanan</td>
+                            <td th:text="': '+${permintaanPengiriman.jenisLayanan}"></td>
+                        </tr>
+                        <tr>
+                            <td>Biaya Pengiriman</td>
+                            <td
+                                th:text="': Rp'+${#numbers.formatDecimal(permintaanPengiriman.biayaPengiriman, 0, 'COMMA', 2, 'POINT')}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="py-2 px-2">
+                    <h5>Daftar barang dipesan</h5>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">SKU</th>
+                                <th scope="col">Merk</th>
+                                <th scope="col">Kuantitas Pesanan</th>
+                                <th scope="col">Total Harga</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr
+                                th:each="ppbarang, iterationStatus : ${permintaanPengiriman.permintaanPengirimanBarang}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td>
+                                    <a th:href="@{/barang/{id}(id=${ppbarang.barang2.sku})}"
+                                        th:text="${ppbarang.barang2.sku}"></a>
+                                </td>
+                                <td th:text="${ppbarang.barang2.merk}"></td>
+                                <td th:text="${ppbarang.kuantitasPermintaan}"></td>
+                                <td
+                                    th:text="'Rp'+${#numbers.formatDecimal(ppbarang.barang2.hargaBarang * ppbarang.kuantitasPermintaan, 0, 'COMMA', 2, 'POINT')}">
+                                </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-secondary my-3" th:href="@{/permintaan-pengiriman}">Kembali</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

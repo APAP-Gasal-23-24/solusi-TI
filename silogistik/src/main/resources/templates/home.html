@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Home
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="~{fragments/fragment :: navbar('home')}"></nav>
+<div class="container py-lg-5">
+    <div class="text-center">
+        <img th:src="@{/img/logistics.png}" style="width: 150px">
+        <h1 class="py-3">SILOGISTIK</h1>
+        <div class="py-3">
+            <div class="row">
+                <div class="col">
+                    <div class="card card2 my-2 mx-1 p-2" style="background-color: #0d6efd; color: #f9f9f9">
+                        <div class="card-body">
+                            <p class="card-title">Gudang</p>
+                            <h1 class="card-text" th:text="${numOfGudang}"></h1>
+                            <p class="card-text">gudang</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card2 my-2 mx-1 p-2" style="background-color: #3484fa; color: #f9f9f9">
+                        <div class="card-body">
+                            <p class="card-title" >Barang</p>
+                            <h1 class="card-text" th:text="${numOfBarang}"></h1>
+                            <p class="card-text">barang</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card2 my-2 mx-1 p-2" style="background-color: #5c9af7; color: #f9f9f9">
+                        <div class="card-body">
+                            <p class="card-title">Permintaan pengiriman</p>
+                            <h1 class="card-text" th:text="${numOfPermintaanPengiriman}"></h1>
+                            <p class="card-text">permintaan pengiriman</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card card2 my-2 mx-1 p-2" style="background-color: #92bbf7; color: #f9f9f9">
+                        <div class="card-body">
+                            <p class="card-title">Karyawan</p>
+                            <h1 class="card-text" th:text="${numOfKaryawan}"></h1>
+                            <p class="card-text">karyawan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

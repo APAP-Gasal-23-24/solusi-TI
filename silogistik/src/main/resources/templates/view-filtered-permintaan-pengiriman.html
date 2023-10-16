@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    Filtered Pemintaan Pengiriman
+  </title>
+  <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+  <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="~{fragments/fragment :: navbar('bonus')}"></nav>
+<div class="container py-lg-5">
+  <div class="text-center">
+    <h2 class="py-5">Filter Permintaan Pengiriman</h2>
+    <div class="px-5">
+      <form th:action="@{/filter-permintaan-pengiriman}" method="GET">
+        <div class="row">
+          <div class="col">
+            <div class="mx-4 my-2">
+              <select name="skuBarang" class="form-control" required>
+                <option selected disabled value="" hidden> Pilih Barang </option>
+                <div th:each="barang : ${listBarang}">
+                  <option th:text="${barang.merk}" th:value="${barang.sku}"></option>
+                </div>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <div class="mx-4 my-2 d-flex justify-content-center">
+              <input required type="date" class="form-control" id="startDate" name="startDate">
+              <p class="mx-3">hingga</p>
+              <input required type="date" class="form-control" id="endDate" name="endDate">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col text-right">
+            <div class="mx-4 my-2">
+              <button class="btn btn-sm btn-primary mx-2" type="submit">Cari</button>
+            </div>
+          </div>
+        </div>
+      </form>
+      <br><br>
+      <div th:if="${isFilterActive}">
+        <div th:if="*{permintaanPengirimanFinal.size() != 0}">
+          <table class="table table-bordered">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Waktu Permintaan</th>
+              <th scope="col">Nomor Pengiriman</th>
+              <th scope="col">Nama Penerima</th>
+              <th scope="col">Alamat Penerima</th>
+              <th scope="col">Tanggal Pengiriman</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="permintaanPengiriman, iterationStatus : ${permintaanPengirimanFinal}">
+              <th scope="row" th:text="${iterationStatus.count}"></th>
+              <td th:text="${#temporals.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
+              <td th:text="${permintaanPengiriman.nomorPengiriman}"></td>
+              <td th:text="${permintaanPengiriman.namaPenerima}"></td>
+              <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
+              <td th:text="${permintaanPengiriman.tanggalPengiriman}"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div th:unless="*{permintaanPengirimanFinal.size() != 0}">
+          <div class="alert alert-secondary text-center" role="alert">
+            <h7 class="text-center" th:text="'Tidak ada pengiriman sesuai kriteria yang dicari'"></h7>
+          </div>
+        </div>
+      </div>
+      <div th:unless="${isFilterActive}">
+        <div class="alert alert-secondary text-center" role="alert">
+          <h7 class="text-center" th:text="'Masukkan barang dan tanggal permintaan pengiriman'"></h7>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

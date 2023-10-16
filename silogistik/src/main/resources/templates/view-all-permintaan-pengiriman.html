@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Permintaan Pengiriman
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('permintaan-pengiriman')}"></nav>
+    <div class="container py-lg-5">
+        <div class="text-center">
+            <h2 class="py-3">Daftar Permintaan Pengiriman</h2>
+            <a class="btn btn-primary" href="/permintaan-pengiriman/tambah">+ Tambah Permintaan Pengiriman</a>
+            <div class="p-5">
+                <table class="table table-bordered">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Waktu Permintaan</th>
+                            <th scope="col">Nomor Pengiriman</th>
+                            <th scope="col">Nama Penerima</th>
+                            <th scope="col">Alamat Penerima</th>
+                            <th scope="col">Tanggal Pengiriman</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="permintaanPengiriman, iterationStatus : ${listPermintaanPengiriman}">
+                            <th scope="row" th:text="${iterationStatus.count}"></th>
+                            <td th:text="${#temporals.format(permintaanPengiriman.waktuPermintaan, 'dd-MM-yyyy, HH:mm')}"></td>
+                            <td th:text="${permintaanPengiriman.nomorPengiriman}"></td>
+                            <td th:text="${permintaanPengiriman.namaPenerima}"></td>
+                            <td th:text="${permintaanPengiriman.alamatPenerima}"></td>
+                            <td th:text="${permintaanPengiriman.tanggalPengiriman}"></td>
+                            <td>
+                                <span><a class="btn btn-sm btn-secondary"
+                                        th:href="@{/permintaan-pengiriman/}+${permintaanPengiriman.id}">Detail</a></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

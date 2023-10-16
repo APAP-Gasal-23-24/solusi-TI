@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Tambah Barang</title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+    <div class="container py-lg-5">
+        <div class="card mx-lg-5">
+            <h2 class="card-header text-center p-3">
+                Tambah Barang
+            </h2>
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <form th:action="@{/barang/tambah}" th:object="${barang}" method="POST" class="mx-4">
+                        Merk Barang : <br>
+                        <input class="form-control" type="text" name="merk" />
+                        <br><br>
+
+                        Tipe Barang : <br>
+                        <select class="form-control" name="tipeBarang">
+                            <option selected disabled value="" hidden> Pilih Kategori </option>
+                            <option th:each="tipe : ${listTipe}" th:value="${tipe.key}" th:text="${tipe.value}">
+                            </option>
+                        </select>
+                        <br><br>
+
+                        Harga : <br>
+                        <input required class="form-control" type="number" name="hargaBarang" />
+                        <br><br>
+
+                        <div class="text-center">
+                            <a th:href="@{/}" class=" mx-2 btn btn-danger">Batal</a>
+                            <button class=" mx-2 btn btn-primary">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

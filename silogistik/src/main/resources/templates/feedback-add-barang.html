@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Permintaan berhasil ditambahkan
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+
+<body>
+<nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+<div class="container py-lg-5">
+    <div class="text-center">
+        <div class="card mx-lg-5">
+            <div class="card-body">
+                <img th:src="@{/img/success.png}" style="width: 100px">
+                <h4 class="py-3"
+                    th:text="${merk}+' dengan SKU ' +${sku} + ' berhasil ditambahkan'">
+                </h4>
+                <a class="btn btn-primary m-3" th:href="@{/barang}">Lihat daftar barang</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

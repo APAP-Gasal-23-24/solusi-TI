@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Detail Barang
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+    <div class="container py-lg-5">
+        <div class="card mx-lg-5">
+            <h2 class="card-header">
+                <div class="row">
+                    <div class="col">
+                        Detail Barang
+                    </div>
+                    <div class="col text-right">
+                        <a class="btn btn-primary" th:href="@{'/barang/ubah/'+${barang.sku}}">+ Ubah Barang</a>
+                    </div>
+                </div>
+            </h2>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <td>Merk</td>
+                            <td th:text="':'+${barang.merk}"></td>
+                        </tr>
+                        <tr>
+                            <td>SKU</td>
+                            <td th:text="':'+${barang.sku}"></td>
+                        </tr>
+                        <tr>
+                            <td>Tipe Barang</td>
+                            <td th:text="':'+${tipeBarang}">
+                        <tr>
+                            <td>Total Stok</td>
+                            <td th:text="':'+${totalStok}"></td>
+                        </tr>
+                        <tr>
+                            <td>Harga</td>
+                            <td th:text="':Rp'+ ${#numbers.formatDecimal(barang.hargaBarang, 0, 'COMMA', 2, 'POINT')}">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="py-2 px-2">
+                    <h5>Daftar gudang</h5>
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Nama Gudang</th>
+                                <th scope="col">Alamat Gudang</th>
+                                <th scope="col">Stok</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="gudangBarang, iterationStatus : ${listGudangBarang}">
+                                <td th:text="${iterationStatus.count}"></td>
+                                <td><a th:text="${gudangBarang.gudang.nama}"
+                                        th:href="@{'/gudang/'+${gudangBarang.gudang.id}}"></a></td>
+                                <td th:text="${gudangBarang.gudang.alamatGudang}"></td>
+                                <td th:text="${gudangBarang.stok}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="text-center">
+                    <a class="btn btn-secondary my-3" th:href="@{/barang}">Kembali</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

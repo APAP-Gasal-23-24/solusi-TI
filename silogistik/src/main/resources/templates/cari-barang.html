@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        Cari Barang
+    </title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+<div class="container py-lg-5">
+    <div class="text-center">
+        <h2 class="py-4">Cari Barang</h2>
+        <div class="p-5">
+            <form th:action="@{/gudang/cari-barang}" method="GET">
+                <div class="d-flex justify-content-center mx-4 my-2">
+                    <select name="skuBarang" class="form-control mx-2" style="width: 80%" required>
+                        <option selected disabled value="" hidden> Pilih Barang </option>
+                        <div th:each="barang : ${listBarang}">
+                            <option th:text="${barang.merk}" th:value="${barang.sku}"></option>
+                        </div>
+                    </select>
+                    <button class="btn btn-sm btn-primary mx-2" type="submit">Cari</button>
+                </div>
+            </form>
+            <div th:if="${isFilterActive}">
+                <div th:if="*{listGudangFiltered.size() != 0}">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Alamat Gudang</th>
+                            <th scope="col">Stok</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="gd, iterationStatus : ${listGudangFiltered}">
+                            <td th:text="${iterationStatus.count}"></td>
+                            <td>
+                                <a th:text="${gd.gudang.getNama()}" th:href="@{/gudang/} + ${gd.gudang.getId()}"></a>
+                            </td>
+                            <td th:text="${gd.gudang.getAlamatGudang()}"></td>
+                            <td th:text="${gd.stok}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:unless="*{listGudangFiltered.size() != 0}">
+                    <div class="alert alert-secondary text-center" role="alert">
+                        <h7 class="text-center" th:text="'Barang tidak tersedia di gudang manapun'"></h7>
+                    </div>
+                </div>
+            </div>
+            <div th:unless="${isFilterActive}">
+                <div class="alert alert-secondary text-center" role="alert">
+                    <h7 class="text-center" th:text="'Masukkan barang yang ingin dicari'"></h7>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

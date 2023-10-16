@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    Gudang
+  </title>
+  <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+  <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+  <nav th:replace="~{fragments/fragment :: navbar('gudang')}"></nav>
+  <div class="container py-lg-5">
+    <div class="text-center">
+      <h2 class="py-3">Daftar Gudang</h2>
+    </div>
+    <div class="p-5">
+      <table class="table" id="tableGudang">
+        <thead class="thead-dark text-center">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Alamat Gudang</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="gudang, iterationStatus : ${listGudang}">
+          <td th:text="${iterationStatus.count}"></td>
+          <td th:text="${gudang.nama}"></td>
+          <td th:text="${gudang.alamatGudang}"></td>
+          <td><a th:href="@{/gudang/} + ${gudang.id}" class="btn btn-secondary">Detail</a></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <script>
+    $(document).ready(function () {
+      $('#tableGudang').DataTable({
+        "lengthMenu": [ 5, 10, 20 ],
+        "columnDefs": [
+          { targets: [3], sortable: false },
+        ]
+      });
+    });
+  </script>
+</body>
+</html>

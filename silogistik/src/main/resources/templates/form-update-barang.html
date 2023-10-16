@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <title>Tambah Barang</title>
+    <object th:insert="~{fragments/fragment :: css}" th:remove="tag"></object>
+    <object th:insert="~{fragments/fragment :: js}" th:remove="tag"></object>
+</head>
+<body>
+    <nav th:replace="~{fragments/fragment :: navbar('barang')}"></nav>
+    <div class="container py-lg-5">
+        <div class="card mx-lg-5">
+            <h2 class="card-header text-center p-3">
+                Ubah Barang
+            </h2>
+            <div class="card-body">
+                <div class="justify-content-center">
+                    <form th:action="@{'/barang/ubah/'+${barang.sku}}" th:object="${barang}" method="POST" class="mx-4">
+                        SKU : <br>
+                        <input required class="form-control" type="text" name="sku" th:value="*{sku}" readonly />
+                        <br><br>
+
+                        Merk Barang : <br>
+                        <input class="form-control" type="text" name="merk" th:value="*{merk}" />
+                        <br><br>
+
+                        Tipe Barang : <br>
+                        <select class="form-control" name="tipeBarang" disabled>
+                            <option th:each="tipe : ${listTipe}" th:value="${tipe.key}" th:text="${tipe.value}"
+                                th:selected="${tipe.key == barang.tipeBarang}">
+                            </option>
+                        </select>
+                        <br><br>
+
+                        Harga : <br>
+                        <input required class="form-control" type="number" name="hargaBarang"
+                            th:value="*{hargaBarang}" />
+                        <br><br>
+
+                        <div class="text-center">
+                            <a class="btn btn-outline-primary text-dark" th:href="@{/barang/} + ${barang.sku}">Batal</a>
+                            <button class="btn btn-primary" type="submit" name="submit">Simpan</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
